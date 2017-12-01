@@ -23,18 +23,11 @@ module One
   class PartTwo
     def initialize(string)
       @nums = string.chars.map(&:to_i)
-      @distance = @nums.length / 2
+      @other_nums = @nums.rotate(@nums.length / 2)
     end
 
     def result
-      @nums.each_with_index.map do |n, index|
-        other_index = (index + @distance) % @nums.length
-        if n == @nums[other_index]
-          n
-        else
-          0
-        end
-      end.sum
+      @nums.zip(@other_nums).map{|x,y| if x == y then x else 0 end}.sum
     end
   end
 
